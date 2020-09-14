@@ -31,7 +31,7 @@ axiom-ls
 
 This will list your running instances and a monthly-cost estimate for each instance.
 
-### Connect to your instance - `axiom-ssh <instance>`
+### Connect to your instance - `axiom-ssh <instance>`
 Now you have an instance, and it has a public IP address, you can connect to your new instance using  `axiom-ssh`
 
 ```
