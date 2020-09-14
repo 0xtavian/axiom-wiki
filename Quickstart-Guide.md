@@ -11,8 +11,6 @@ Before you can interact with axiom, you first have to initialize a new instance.
 ```
 axiom-init
 ```
-![](https://i.imgur.com/LxpPyG3.png)
-![](https://i.imgur.com/b7yr8FP.png)
 
 You can run this command without any parameters, and it will pick a name for you. This name is picked at random from a list of legends!
 
