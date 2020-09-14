@@ -8,6 +8,7 @@ To install axiom, all you have to do is ensure that you have all the right depen
 - jq - 1.6 
 - packer - Tested with v1.5.6
 - doctl 
+- Interlace - https://github.com/codingo/Interlace
 - rsync
 - lsb_release - Tested with 1.4 (but any version should be ok)
 - fzf (If you want menus)
