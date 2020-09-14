@@ -2,7 +2,7 @@ Once you have a fleet spun up, and it is selected (follow the fleets guide), you
 
 What is inside your input file will depend on the type of scan you want to run. You can modify the behaviour of a scan by using different axiom-scan modules, these are located in `~/.axiom/interact/modules/` and are simple JSON files that detail the behaviour of your scan.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7ogiwKaIvxw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://www.youtube.com/embed/7ogiwKaIvxw
 
 As of right now, the below modules are  as follows:
 ```
