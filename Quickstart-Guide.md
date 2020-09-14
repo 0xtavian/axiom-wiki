@@ -29,6 +29,20 @@ Now you have spun up an instance, you can run `axiom-ls` and get a list of all r
 axiom-ls
 ```
 
+This will list your running instances and a monthly-cost estimate for each instance.
 
+### Connect to your instance - `axiom-ssh <instance>`
+Now you have an instance, and it has a public IP address, you can connect to your new instance using  `axiom-ssh`
 
-There are a few 
+```
+# axiom-ssh <instance>
+axiom-ssh jerry
+```
+
+If you want to be dropped into a tmux session, that will remain after you disconnect, use the `--tmux` flag.
+
+```
+axiom-ssh jerry --tmux
+```
+
+To detach from this tmux session, run `ctrl+a d`, this will disconnect you from the box but leave your tmux session running (and any command running in that session!)
