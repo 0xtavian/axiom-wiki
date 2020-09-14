@@ -86,4 +86,5 @@ axiom-scan 100.txt -m=nmapx -T5 -sV -p80 -o=scan
 
 This will perform a distributed nmap service scan against port 80, and give me a HTML output to read my results!
 
-## Distributed ffuf - this is coming, but will be a feature for premium users. This is a very potentially dangerous module and releasing it to the public could result in mass-DDoS type events, especially on bounty programs. I want to make sure we have a way to control distributed content discovery scans, so that we don't end up creating a weapon of mass destruction. Axiom is basically a botnet for pennies on the dollar (with predictable billing).  
+## Distributed ffuf
+this is coming, but will be a feature for premium users. This is a very potentially dangerous module and releasing it to the public could result in mass-DDoS type events, especially on bounty programs. I want to make sure we have a way to control distributed content discovery scans, so that we don't end up creating a weapon of mass destruction. Axiom is basically a botnet for pennies on the dollar (with predictable billing).  
