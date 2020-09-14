@@ -76,7 +76,7 @@ Given some work, the above commands can be used either on the fly, or in a bigge
 }
 ```
 
-## Nmapx with XML
+## Nmapx with HTML output
 A slightly cool feature of the axiom-scan tool is the nmapx module, given a list of ip addresses & ranges, this will distribute nmap across your fleet and output the results to a bootstrap themed html outfile! This can be really pretty and really intuitive way to read your scan results, especially across a lot of hosts.
 
 
