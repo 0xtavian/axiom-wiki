@@ -5,6 +5,7 @@ To install axiom, all you have to do is ensure that you have all the right depen
 - SSH Keypair (I recommend using a key without a passphrase for speed, even if used just for Axiom.)
 - git
 - curl
+- ruby
 - jq - 1.6 
 - packer - Tested with v1.5.6
 - doctl 
