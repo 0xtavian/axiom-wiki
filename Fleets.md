@@ -24,19 +24,19 @@ axiom-select 'jarvis*'
 
 This will remember what instances are in your fleet, and put these in a temporary cache file in `~/.axiom/selected.conf`
 
-### Execute a command on every instance
+### Execute a command on every instance
 ```
 axiom-exec 'ifconfig eth0'
 ```
 
 The above command will run this command on all instances, watch as you can concurrently execute single tasks. 
 
-### Execute a command in the background on every instance
+### Execute a command in the background on every instance
 ```
 axiom-execb 'ifconfig eth0'
 ```
 
-### Upload a file to all instances in a fleet
+### Upload a file to all instances in a fleet
 ```
 axiom-scp 'wordlist.txt' 'jarvis*':'~/wordlist.txt'
 ```
