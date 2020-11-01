@@ -6,6 +6,29 @@ What is inside your input file will depend on the type of scan you want to run. 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/7ogiwKaIvxw/0.jpg)](http://www.youtube.com/watch?v=7ogiwKaIvxw "Scanning at Scale - STÖK")
 
 
+# NOTICE:
+For version 2, new syntax is coming, the only change syntactically will be the output modes -oX and -oG accordingly, as well as the removal of "=" for variable assignment. A new syntax command for v2 looks as follows:
+
+```
+axiom-scan roots.txt -m subfinder -o subs.txt
+axiom-scan subs.txt -m dnsprobe -o dns.txt
+
+cat dns.txt | awk '{ print $2 }' | anew ips.txt
+
+cat ips.txt | cf-check > ips.txt
+
+axiom-scan ips.txt -m masscan -oX masscan.xml -rate=100000
+axiom-scan ips.txt -m nmap -oG nmap.txt -T4 -p- -sV
+axiom-scan ips.txt -m nmap -oX nmap.xml -T4 -p- -sV
+
+ports.py nmap.xml | anew hosts.txt
+
+axiom-scan hosts.txt -m httpx -o http.txt
+
+axiom-scan http.txt -m gowitness -o screenshots
+axiom-scan http.txt -m ffuf -o content.csv
+```
+
 As of right now, the below modules are  as follows:
 ```
 amass.json     gau.json       masscan.json   nmapx.json     subfinder.json
