@@ -1,3 +1,5 @@
+# `axiom-scan` - Performing distributed scanning, some examples.
+
 # NOTICE:
 For axiom-scan v2, which is recently released, the only change syntactically will be the output modes -oX and -oG accordingly, as well as the removal of "=" for variable assignment. A new syntax command for v2 looks as follows:
 
@@ -27,7 +29,6 @@ dnsprobe.json  gau.json       httpx.json     nmap.json      subfinder.json
 ffuf.json      gowitness.json masscan.json   nuclei.json    tlscout.json
 ```
 
-# `axiom-scan` - Performing distributed scanning, some examples.
 To perform a simple masscan across a list of IP addresses, run:
 
 ```
