@@ -1,11 +1,3 @@
-Once you have a fleet spun up, and it is selected (follow the fleets guide), you can use axiom-scan. `axiom-scan` is a tool that allows you to perform scan-like operations across your fleets. It always, at a minimum, requires a single argument, this argument should be an input file accessible in the local directory with a list of targets.
-
-What is inside your input file will depend on the type of scan you want to run. You can modify the behaviour of a scan by using different axiom-scan modules, these are located in `~/.axiom/interact/modules/` and are simple JSON files that detail the behaviour of your scan.
-
-## Scanning at scale using Axiom - Stök
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/7ogiwKaIvxw/0.jpg)](http://www.youtube.com/watch?v=7ogiwKaIvxw "Scanning at Scale - STÖK")
-
-
 # NOTICE:
 For axiom-scan v2, which is recently released, the only change syntactically will be the output modes -oX and -oG accordingly, as well as the removal of "=" for variable assignment. A new syntax command for v2 looks as follows:
 
@@ -53,6 +45,13 @@ Any argument supplied to axiom-scan will automatically be passed to the underlyi
 ```
 axiom-scan ips.txt -p80,443,8080 --rate=100000 --banners -o masscan-banners-fast.txt
 ```
+Once you have a fleet spun up, and it is selected (follow the fleets guide), you can use axiom-scan. `axiom-scan` is a tool that allows you to perform scan-like operations across your fleets. It always, at a minimum, requires a single argument, this argument should be an input file accessible in the local directory with a list of targets.
+
+What is inside your input file will depend on the type of scan you want to run. You can modify the behaviour of a scan by using different axiom-scan modules, these are located in `~/.axiom/interact/modules/` and are simple JSON files that detail the behaviour of your scan.
+
+## Scanning at scale using Axiom - Stök
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/7ogiwKaIvxw/0.jpg)](http://www.youtube.com/watch?v=7ogiwKaIvxw "Scanning at Scale - STÖK")
+
 
 
 # Modules
