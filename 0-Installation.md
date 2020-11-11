@@ -41,11 +41,15 @@ $HOME/.axiom/interact/axiom-configure
 ```
 
 # Troubleshooting
+If an error is occurring recently, please run axiom-update successfully before reporting an issue.
+
 If even after all these steps, it still isn't working, then use this checklist:
 - Does ~/.axiom/axiom.json exist? Is it empty?
 - Is doctl configured? Run `doctl compute instances list` to test, you may need to run `doctl auth`. 
 - Is axiom in your path? Run `echo $PATH`, your `$PATH` should contain ~/.axiom/interact/, this is the directory with all the scripts
 - Are you using axiom correctly? Check the quick start guide!
+- Is git complaining about un-mergable files on update? Delete the ones it complain about, then run the update again.
+- Do you get an error about `functions.sh`? Run `axiom-account-setup`
 
 ## FAQ
 ### I can't log in to my droplets, I get permission denied/wrong password?
