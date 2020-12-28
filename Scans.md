@@ -105,7 +105,7 @@ Examples can be read in ~/.axiom/modules/
 }]
 ```
 
-## Nmapx with HTML output
+## Nmap with HTML output
 A slightly cool feature of the axiom-scan tool is the nmap module with output set with "-oX" (refer to examples above), given a list of ip addresses & ranges, this will distribute nmap across your fleet and output the results to a bootstrap themed html outfile! This can be really pretty and really intuitive way to read your scan results, especially across a lot of hosts.
 
 
