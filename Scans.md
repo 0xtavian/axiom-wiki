@@ -117,5 +117,5 @@ This will perform a distributed nmap service scan against port 80, and give me a
 
 ## Distributed ffuf
 ```
-axiom-scan http.txt -m ffuf -o results.csv
+axiom-scan http.txt -m ffuf -o results.csv --threads 1
 ```
