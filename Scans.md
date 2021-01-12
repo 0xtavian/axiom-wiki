@@ -59,7 +59,7 @@ What is inside your input file will depend on the type of scan you want to run. 
 You can use axiom-scan modules using the `-m=module` flag. Let's demo running subfinder against a list of domains.
 
 ```
-axiom-scan domains.txt -m subfinder -o subf.txt
+axiom-scan domains.txt -m subfinder -o subf.txt --threads 1
 ```
 
 Assuming your list of domains is greater than the number of instances in your fleet, it will split the domains up however many times you have instances in a fleet,  if you have 3 instances, it will split your infile 3 ways and upload them all.
