@@ -4,8 +4,8 @@
 For axiom-scan v2, which is recently released, the only change syntactically will be the output modes -oX and -oG accordingly, as well as the removal of "=" for variable assignment. A new syntax command for v2 looks as follows:
 
 ```
-axiom-scan roots.txt -m subfinder -o subs.txt
-axiom-scan subs.txt -m dnsprobe -o dns.txt
+axiom-scan roots.txt -m subfinder -o subs.txt --threads 3
+axiom-scan subs.txt -m dnsprobe -o dns.txt 
 
 cat dns.txt | awk '{ print $2 }' | anew ips.txt
 
@@ -20,7 +20,7 @@ ports.py nmap.xml | anew hosts.txt
 axiom-scan hosts.txt -m httpx -o http.txt
 
 axiom-scan http.txt -m gowitness -o screenshots
-axiom-scan http.txt -m ffuf -o content.csv
+axiom-scan http.txt -m ffuf -o content.csv --threads 2
 ```
 
 As of right now, the below modules are  as follows:
