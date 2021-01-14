@@ -5,7 +5,7 @@ For axiom-scan v2, which is recently released, the only change syntactically wil
 
 ```
 axiom-scan roots.txt -m subfinder -o subs.txt --threads 3
-axiom-scan subs.txt -m dnsprobe -o dns.txt 
+axiom-scan subs.txt -m dnsx -resp -o dns.txt 
 
 cat dns.txt | awk '{ print $2 }' | anew ips.txt
 
@@ -56,7 +56,7 @@ What is inside your input file will depend on the type of scan you want to run. 
 
 
 # Modules
-You can use axiom-scan modules using the `-m=module` flag. Let's demo running subfinder against a list of domains.
+You can use axiom-scan modules using the `-m module` flag. Let's demo running subfinder against a list of domains.
 
 ```
 axiom-scan domains.txt -m subfinder -o subf.txt --threads 1
