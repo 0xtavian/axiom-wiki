@@ -4,11 +4,11 @@ A bunch of instances, usually an odd number, 3 or greater, is known as a fleet. 
 
 ### Starting a fleet
 ```
-axiom-fleet <fleet> -i=<number of instances> -t=<expiry time in hours>
-axiom-fleet jarvis -i=5 -t=3
+axiom-fleet <fleet> -i=<number of instances> 
+axiom-fleet jarvis -i=5
 ```
 
-The above command will start a fleet called "jarvis" with 5 instances and run for a total of 3 hours. On DigitalOcean, these instances will expire after 3 hours automatically (so that you don't forget!). 
+The above command will start a fleet called "jarvis" with 5 instances. Automatic shutdown of droplets has been deprecated, we noticed it was mostly unused and added more complexity than it paid off. If you want to see a return of automatic disposal - please make an issue!
 
 ### List instances
 List your new running instances:
