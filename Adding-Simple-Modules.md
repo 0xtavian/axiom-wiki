@@ -19,4 +19,4 @@ Just as important as a file named `input` to be the module, we also have `output
 
 For tools that only output to STDOUT but not to a file, avoid using `>` to redirect the output. Instead pipe the STDOUT to `tee` and save it to a file named output, `tee output`.
 
-`"cat input`, which as we previously explained is a portion of the target list, is passed to the binary `/usr/bin/dnsx` with arguments  `-silent -r /home/op/lists/resolvers.txt` and outputs the contents to a file named output `-o output"` as text `"ext":"txt"`.
+`"cat input`, which as we previously explained is a portion of the target list, is passed to the full path of the binary `/usr/bin/dnsx` with arguments  `-silent -r /home/op/lists/resolvers.txt` and outputs the contents to a file named output `-o output"` as text `"ext":"txt"`.
