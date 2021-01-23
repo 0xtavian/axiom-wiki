@@ -117,8 +117,8 @@ This will perform a distributed nmap service scan against port 80, and give me a
 
 ## Distributed ffuf
 ```
-axiom-scan http.txt -m ffuf -o results.csv --threads 1
+axiom-scan http.txt -m ffuf -o results.csv -threads 1
 
 # -w specifies a custom wordlist to the absolute path on the axiom instance!
-axiom-scan http.txt -m ffuf -w ~/lists/jhaddix-all.txt -o results.csv --threads 1
+axiom-scan http.txt -m ffuf -w ~/lists/jhaddix-all.txt -o results.csv -threads 1
 ```
