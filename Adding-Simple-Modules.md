@@ -11,7 +11,7 @@ Creating a module is also easy. Let's use [DNSX](https://github.com/pry0cc/axiom
 }]
 ```
 
-With axiom-scan, every instance executes the same command, which can be found in the module. axiom-scan splits the user provided target list (bunch of IPs for example) into equal parts per instance. Meaning if you have 5 instances, one target list is [divided](https://github.com/pry0cc/axiom/blob/master/interact/axiom-scan#L305-L350) into 5 equal parts (the best it can) and uploads them to the appropriate instance. During this process, it renames all files to `input`. Each instance is leveraging it's own file called `input`, specified in the module, which is one portion of total target list. This is important to know as all modules need to include `input` or else Axiom-scan won't know where to find the target list.  
+With axiom-scan, every instance executes the same command, which can be found in the module. axiom-scan splits the user provided target list (bunch of IPs for example) into equal parts per instance. Meaning if you have 5 instances, one target list is [divided](https://github.com/pry0cc/axiom/blob/master/interact/axiom-scan#L305-L350) into 5 equal parts (the best it can) and uploads them to the appropriate instance. During this process, it renames all files to `input`. Each instance is leveraging it's own file called `input`, specified in the module, which is one portion of total target list. This is important to know as all modules need to include `input` or else axiom-scan won't know where to find the target list.  
 
 Always be sure to add the full path to the binary for all modules. You can find the path with the command `which`. For example, `which dnsx` shows `/usr/bin/dnsx`.
 
