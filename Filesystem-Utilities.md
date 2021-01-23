@@ -15,7 +15,12 @@ Assuming your instance is called `jerry`, and you can see it in `axiom-ls`, and 
 ```
 
 ```
-axiom-scp wordlist.txt jerry:~/wordlist.txt
+# axiom-scp wordlist.txt jerry:~/wordlist.txt
+```
+
+To copy a file from every single instance to the local file system you can use a wildcard. You must specify an output directory. $name is required and is a literal string that gets interpolated. 
+```
+# axiom-scp '<instance>*':/full/path/to/file 'output/$name.txt'
 ```
 
 Axiom will relay this data onto `rsync` with compression to move the file. How it works under the hood is really cool, so I suggest you check it out :D
