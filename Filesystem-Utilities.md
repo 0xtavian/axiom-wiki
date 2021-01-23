@@ -10,8 +10,8 @@ If you've ever used `scp`, you'll know it makes moving files between local and r
 Assuming your instance is called `jerry`, and you can see it in `axiom-ls`, and assuming you want to move a local file "wordlist.txt" to the home directory of our jerry instance.
 
 ```
-# axiom-scp <src file> <instance>:<remote destination>
-# axiom-scp <instance>:<src destination> <destinaion file>
+# axiom-scp <local src file> <instance>:<full remote path>
+# axiom-scp <instance>:<full remote path> <local file destination>
 ```
 
 ```
