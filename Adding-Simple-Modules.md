@@ -17,4 +17,6 @@ Always be sure to add the full path to the binary for all modules. You can find 
 
 Just as important as a file named `input` to be the module, we also have `output`, which you guessed, is the filename for output file. To download results from each instance, axiom-scan uses rsync via SSH to download a file named `output` from each instance. The `output` files are then merged into one and finally renamed to a user provided argument.
 
+For tools that only output to STDOUT but not to a file, avoid using `>` to redirect the output. Instead pipe the STDOUT to `tee` and save it to a file named output, `tee output`.
+
 `"cat input`, which as we previously explained is a portion of the target list, is passed to the binary `/usr/bin/dnsx` with arguments  `-silent -r /home/op/lists/resolvers.txt` and outputs the contents to a file named output `-o output"` as text `"ext":"txt"`.
