@@ -78,7 +78,7 @@ axiom-fleet -i=13 # Initialize a fleet, name it randomly
 
 ```bash
 axiom-scp testy01:~/path/to/file output/test.txt # copy file from testy01:~/path/to/file to output/test.txt
-axiom-scp 'testy*':~/path/to/file 'output/$name.txt' # Copy a file from every single instance in the testy fleet from the path to the name of the instance, $name gets interpolated. 
+axiom-scp 'testy*':~/path/to/file 'output/$name.txt' # Copy a file from every single instance in the testy fleet from the path to the name of the instance. You must specify an output directory, $name is a required literal string and gets interpolated. 
 axiom-scp test.txt 'testy*':/path/to/file #  Copy test.txt to the same path on each fleet
 ```
 
