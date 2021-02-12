@@ -122,3 +122,18 @@ axiom-scan http.txt -m ffuf -o results.csv -threads 1
 # -w specifies a custom wordlist to the absolute path on the axiom instance!
 axiom-scan http.txt -m ffuf -w ~/lists/jhaddix-all.txt -o results.csv -threads 1
 ```
+
+## Custom Wordlists
+To specify a custom wordlist that is currently located on the axiom instance, use the `-w` flag with axiom-scan.
+```
+axiom-scan http.txt -m ffuf -w /path/on/instance -o ffuf.csv
+```
+This needs to be the absolute path of the file and the file must be present on the instance.
+
+To upload a custom local file on scan start, use the `-wL` flag.
+
+```
+axiom-scan domains.txt -m shuffledns -wL ~/path/to/local/wordlist.txt -o shuffle.txt
+axiom-scan http.txt -m ffuf -wL ~/path/to/local/wordlist.txt -o ffuf.csv
+axiom-scan http.txt -m nuclei -wL ~/path/to/local/template.yml -o nuclei.txt
+```
