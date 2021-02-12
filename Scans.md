@@ -25,8 +25,8 @@ axiom-scan http.txt -m ffuf -o content.csv --threads 2
 
 As of right now, the below modules are  as follows:
 ```
-amass.json   dnsgen.json  ffuf.json  gau.json       gowitness.json  masscan.json  meg.json   nmapx.json   shuffledns.json  subfinder.json
-dalfox.json  dnsx.json    ffuz.json  gospider.json  httpx.json      massdns.json  nmap.json  nuclei.json  soxy.json        tlscout.json
+amass.json   dnsgen.json  ffuf.json      gau.json     gowitness.json  masscan.json  meg.json    nmapx.json   shuffledns.json  subfinder.json
+dalfox.json  dnsx.json    gospider.json  httpx.json   massdns.json    nmap.json     nuclei.json soxy.json    tlscout.json
 ```
 
 To perform a simple masscan across a list of IP addresses, run:
