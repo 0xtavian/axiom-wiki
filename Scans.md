@@ -38,13 +38,13 @@ axiom-scan ips.txt -p80,443
 You can set an outfile also:
 
 ```
-axiom-scan ips.txt -p80,443 -o masscan.txt
+axiom-scan ips.txt -m masscan -p80,443 -o masscan.txt
 ```
 
 Any argument supplied to axiom-scan will automatically be passed to the underlying command, such as:
 
 ```
-axiom-scan ips.txt -p80,443,8080 --rate=100000 --banners -o masscan-banners-fast.txt
+axiom-scan ips.txt -m masscan -p80,443,8080 --rate=100000 --banners -o masscan-banners-fast.txt
 ```
 Once you have a fleet spun up, and it is selected (follow the fleets guide), you can use axiom-scan. `axiom-scan` is a tool that allows you to perform scan-like operations across your fleets. It always, at a minimum, requires a single argument, this argument should be an input file accessible in the local directory with a list of targets.
 
