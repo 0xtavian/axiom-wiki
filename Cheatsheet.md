@@ -68,8 +68,9 @@ axiom-account <account> # Select/Switch to the specifed account
 ## Initialize a fleet
 
 ```bash
-axiom-fleet testy -i=8 # Initialize a fleet named 'testy', instances will be named, testy01, test02 etc
 axiom-fleet -i=13 # Initialize a fleet, name it randomly
+axiom-fleet testy -i=8 # Initialize a fleet named 'testy', instances will be named, testy01, test02 etc
+axiom-fleet testy -i=10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using round-robin region distribution  
 ```
 
 ---
@@ -77,9 +78,9 @@ axiom-fleet -i=13 # Initialize a fleet, name it randomly
 ## Copy files to and from hosts
 
 ```bash
-axiom-scp testy01:~/path/to/file output/test.txt # copy file from testy01:~/path/to/file to output/test.txt
-axiom-scp 'testy*':~/path/to/file 'output/$name.txt' # Copy a file from every single instance in the testy fleet from the path to the name of the instance. You must specify an output directory, $name is a required literal string and gets interpolated. 
 axiom-scp test.txt 'testy*':/path/to/file #  Copy test.txt to the same path on each fleet
+axiom-scp testy01:~/path/to/file output/test.txt # copy file from testy01:~/path/to/file to output/test.txt
+axiom-scp 'testy*':~/path/to/file 'output/$name.txt' # Copy a file from every instance in the testy fleet to a local folder. You must specify an output directory, $name is a required literal string and gets interpolated from the instance name. 
 ```
 
 ---
