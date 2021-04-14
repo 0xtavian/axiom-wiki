@@ -32,10 +32,10 @@ axiom-ssh --just-generate # Generate an SSH config at ~/.axiom/.sshconfig
 ## Backup an Initialized Instance
 
 ```bash
-axiom-backup <name> # Backup
+axiom-backup 
 ```
 
-Backups are stored in ~/.axiom/boxes, files to be backed up are in `~/.axiom/boxes/backup-files.txt.`
+After running axiom-init you can set up config files, unique wordlists, private tools etc, take a snapshot of that image and use it to deploy future axiom instances/fleets. 
 
 ---
 
