@@ -81,6 +81,8 @@ axiom-fleet testy -i=10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using roun
 axiom-scp test.txt 'testy*':/path/to/file #  Copy test.txt to the same path on each fleet
 axiom-scp testy01:~/path/to/file output/test.txt # copy file from testy01:~/path/to/file to output/test.txt
 axiom-scp 'testy*':~/path/to/file 'output/$name.txt' # Copy a file from every instance in the testy fleet to a local folder. You must specify an output directory, $name is a required literal string and gets interpolated from the instance name. 
+axiom-scp mytemplates/ 'buck*':/home/op/custom-templates # To copy a file or folder from the local file system to every instance, for example a folder of nuclei templates, simply specify the local path you wish to copy, the fleet prefix+asterisk wrapped in quotes followed by a colon and full path on the remote instance
+
 ```
 
 ---
