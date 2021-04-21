@@ -23,7 +23,7 @@ To copy a file from every single instance to the local file system you can use a
 # axiom-scp '<instance>*':/full/path/to/file 'output/$name.txt'
 ```
 
-To copy a file or folder from the local file system to every instance, for example a folder of nuclei templates, simply specify the local path you wish to copy, the fleet prefix+asterisk wrapped in quotes followed by a colon and full path to the remote instance
+To copy a file or folder from the local file system to every instance, for example a folder of nuclei templates, simply specify the local path you wish to copy, the fleet prefix+asterisk wrapped in quotes followed by a colon and full path on the remote instance
 `'buck*':/home/op/custom-templates`.  
 ```
 # axiom-scp mytemplates/ 'buck*':/home/op/custom-templates
