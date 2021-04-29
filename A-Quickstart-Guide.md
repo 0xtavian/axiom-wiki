@@ -47,8 +47,11 @@ axiom-ssh jerry --tmux
 
 To detach from this tmux session, run `ctrl+a d`, this will disconnect you from the box but leave your tmux session running (and any command running in that session!)
 
-### Backup your instance
-If you want to backup your instance, run `axiom-backup <instance>` and a local rsync backup will be made of the home directory in `~/.axiom/boxes/`. You can manage these boxes with the `axiom-boxes` command, this will be covered more in [Filesystem operations]().
+### Backup an Initialized Instance
+```
+axiom-backup jerry
+```
+After running axiom-init you can set up config files, unique wordlists, private tools etc, take a snapshot of that image and use it to deploy future axiom instances/fleets.
 
 ### Delete your instance
 Once you're done with your instance, delete it using the command, `axiom-rm <instance>`
