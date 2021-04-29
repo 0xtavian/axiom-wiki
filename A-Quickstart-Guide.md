@@ -5,6 +5,12 @@ If you've followed the installation steps with success, you should have run the 
 
 You should have a valid build in your account now, if, in doubt, you can run `axiom-build` and create a new base snapshot just in case!
 
+### Pick a Packer provisioner - `axiom-build`
+We currently have three different base images you can provision. Our default provisioner comes with tools to run most [modules](https://github.com/pry0cc/axiom/tree/master/modules). The ReconFTW provisioner comes with all tools installed and the Barebones provisioner comes with no tools installed. If you want to bring-you-own Packer JSON provisioner, select custom.
+```
+axiom-build
+```
+
 ### Initialize a new instance - `axiom-init`
 Before you can interact with axiom, you first have to initialize a new instance. 
 
@@ -47,11 +53,11 @@ axiom-ssh jerry --tmux
 
 To detach from this tmux session, run `ctrl+a d`, this will disconnect you from the box but leave your tmux session running (and any command running in that session!)
 
-### Backup an Initialized Instance
+### Backup an Initialized Instance - `axiom-backup <instance>`
+After running axiom-init you can set up config files, unique wordlists, private tools etc, take a snapshot of that image and use it to deploy future axiom instances/fleets.
 ```
 axiom-backup jerry
 ```
-After running axiom-init you can set up config files, unique wordlists, private tools etc, take a snapshot of that image and use it to deploy future axiom instances/fleets.
 
 ### Delete your instance
 Once you're done with your instance, delete it using the command, `axiom-rm <instance>`
