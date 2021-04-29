@@ -6,7 +6,7 @@ If you've followed the installation steps with success, you should have run the 
 You should have a valid build in your account now, if, in doubt, you can run `axiom-build` and create a new base snapshot just in case!
 
 ### Pick a Packer provisioner - `axiom-build`
-We currently have three different base images you can provision. Our default provisioner comes with tools to run most [modules](https://github.com/pry0cc/axiom/tree/master/modules). The ReconFTW provisioner comes with all tools installed and the Barebones provisioner comes with no tools installed. If you want to bring-you-own Packer JSON provisioner, select custom.
+We currently offer [three](https://github.com/pry0cc/axiom/tree/master/images/provisioners) different base images you can provision. Our [Default](https://github.com/pry0cc/axiom/blob/master/images/provisioners/full.json) provisioner comes with tools to run most [modules](https://github.com/pry0cc/axiom/tree/master/modules). The [ReconFTW](https://github.com/pry0cc/axiom/blob/master/images/provisioners/reconftw.json) provisioner comes with all tools installed and the [Barebones](https://github.com/pry0cc/axiom/blob/master/images/provisioners/barebones.json) provisioner comes with no tools installed. If you want to bring-you-own Packer JSON provisioner, select custom.
 ```
 axiom-build
 ```
