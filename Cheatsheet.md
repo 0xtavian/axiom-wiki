@@ -83,15 +83,28 @@ axiom-fleet testy -i=10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using roun
 ## Copy files to and from hosts
 
 Copy a remote file from all instances in myfleet to local folder. `'$name'` must be wrapped single quotes. `'$name'` is a required literal string and gets interpolated from the instance name. <br>
-```axiom-scp 'myfleet*':/home/op/myfile.txt '~/local/folder/$name.txt' ``` <br>
+
+```
+axiom-scp 'myfleet*':/home/op/myfile.txt '~/local/folder/$name.txt'
+```
+
 Copy a remote file from one instance 'myfleet05' to a local file <br>
-```axiom-scp myfleet05:/home/op/myfile-from-myfleet05.txt '~/local/folder/myfile-from-myfleet05.txt' ```  <br>   
-Copy a local file to all instances in myfleet  <br> 
-```axiom-scp myfile.txt 'myfleet*':/home/op/myfile.txt ``` <br> 
-Copy a local folder to all instances in myfleet <br>
-```axiom-scp mytemplates/ 'myfleet*':/home/op/custom-templates ``` <br>
 
+```
+axiom-scp myfleet05:/home/op/myfile-from-myfleet05.txt '~/local/folder/myfile-from-myfleet05.txt'
+```
 
+Copy a local file to all instances in myfleet, for example uploading a custom wordlist  <br> 
+
+```
+axiom-scp myfile.txt 'myfleet*':/home/op/myfile.txt
+```
+
+Copy a local folder to all instances in myfleet, for example uploading a folder of custom nuclei templates <br>
+
+```
+axiom-scp mytemplates/ 'myfleet*':/home/op/custom-templates 
+``` 
 ---
 
 ## Deploy a profile
