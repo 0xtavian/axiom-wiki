@@ -1,6 +1,6 @@
 Welcome to the axiom wiki!
 
-Axiom is a dynamic infrastructure framework for *anybody*! What does this mean? Well, axiom is kind of unique but is just an implementation of many common cloud technologies. 
+Axiom is a dynamic infrastructure framework for *everybody*! What does this mean? Well, axiom is kind of unique but is just an implementation of many common cloud technologies. 
 
 Axiom is a framework that allows you to easily orchestrate one, or many cloud instances to distribute processing of a task or many tasks. There are also numerous helper-utilities that make moving files between your instances, backing up your instances, and initializing and deleting one or many instances a painless task. 
 
