@@ -1,3 +1,4 @@
+#  Write-ups <br>
  Introducing Axiom - The Dynamic Pwnstation Orchestrator <br>
  https://0x00sec.org/t/introducing-axiom-the-dynamic-pwnstation-orchestrator-for-red-team-bug-bounty/21824
 
@@ -10,6 +11,10 @@
  USING AXIOM TO SEND BURP SUITE REQUESTS TO ALTERNATING PROXIES by james1052  <br>
  https://jamesonhacking.blogspot.com/2021/04/using-axiom-to-send-burp-suite-requests.html
 
+ Giving Back to the Community with Ben Bidmead aka pry by securitytrails <br>
+ https://securitytrails.com/blog/interview-pry
+
+ # Videos <br>
  Bug Bounty Recon - SCANNING AT SCALE (masscan, nmap, axiom, recon.dev) by STOK  <br>
  https://www.youtube.com/watch?v=7ogiwKaIvxw&t=11s
 
