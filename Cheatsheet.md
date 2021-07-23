@@ -34,13 +34,23 @@ axiom-ssh <name> --cache # Don't generate ssh config, just connect with cache
 axiom-ssh --just-generate # Generate an SSH config at ~/.axiom/.sshconfig
 ```
 
-## Backup an Initialized Instance
+## Backup an initialized instance to the cloud
 
 ```bash
 axiom-backup 
 ```
 
 After running axiom-init you can set up config files, unique wordlists, private tools etc, take a snapshot of that image and use it to deploy future axiom instances/fleets. 
+
+---
+
+## Backup the home directory of an initialized instance to the local filesystem
+
+```bash
+axiom-sync instance01
+```
+
+This allows you to download a copy of everything in an axiom instance to you local filesystem
 
 ---
 
