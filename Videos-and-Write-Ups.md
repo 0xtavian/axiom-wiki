@@ -34,7 +34,7 @@
  https://www.hahwul.com/2021/01/27/how-to-share-other-device-settings-in-axiom/
 
  Distributed Bug Bounty Hunting using Axiom by @PhilippeDelteil <br>
- https://medium.com/bug-bounty/distributed-bug-bounty-hunting-using-axiom-dbbh-e3c24a635b8 @PhilippeDelteil
+ https://medium.com/bug-bounty/distributed-bug-bounty-hunting-using-axiom-dbbh-e3c24a635b8
 
  How to run subfinder with Axiom by @PhilippeDelteil <br>
  https://medium.com/bug-bounty/how-to-run-subfinder-with-axiom-dc2fec98920c
