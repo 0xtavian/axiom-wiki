@@ -1,4 +1,4 @@
-Welcome to the axiom wiki! Join our Discord! https://discord.gg/zcPcdmzn
+Welcome to the axiom wiki! Join our Discord! https://discord.com/invite/c6BHVfn
 
 Axiom is a dynamic infrastructure framework for *everybody*! What does this mean? Well, axiom is kind of unique but is just an implementation of many common cloud technologies. 
 
