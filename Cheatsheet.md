@@ -6,6 +6,7 @@ I've put together a little cheatsheet to help you on your way!
 ---
 # axiom-build 
 **Pick a Packer provisioner** :hatching_chick:
+> You must run axiom-configure before anything else. THis creates your axiom.json file which is required by other commands.
 ```
 axiom-build
 ```
@@ -17,7 +18,7 @@ axiom-build
 > Custom Images:
 > - [Full](https://github.com/pry0cc/axiom/blob/master/images/provisioners/full.json) provisioner comes with only tools with [modules](https://github.com/pry0cc/axiom/tree/master/modules) availabled. Reccomended for axiom-feet.
 > - [Light](https://github.com/pry0cc/axiom/blob/master/images/provisioners/light.json) provsioner comes with zsh and a few other minor adjustments over the barebones provsioner. 
-> If you want to bring-your-own Packer JSON provisioner, select custom. *Make sure your packager json is placed in ~/.axiom/images/provsioners*
+> If you want to bring-your-own Packer JSON provisioner, select custom. *Make sure your packer json is placed in ~/.axiom/images/provsioners*
 ---
 # axiom-init
 **Initialize a single instance** :seedling:
@@ -67,7 +68,7 @@ axiom-sync instance01
 ---
 
 # axiom-boxes
-**List all box backups**
+**List all box backups** :brain:
 
 ```bash
 axiom-boxes ls # List boxes
@@ -105,7 +106,7 @@ axiom-account <account> # Select/Switch to the specifed account
 ---
 
 # axiom-scp
-**Copy files to and from hosts**
+**Copy files to and from hosts** 
 > Copy a remote file from all instances in myfleet to local folder. `'$name'` must be wrapped single quotes. `'$name'` is a required literal string and gets interpolated from the instance name. <br>
 
 ```
@@ -132,7 +133,7 @@ axiom-scp mytemplates/ 'myfleet*':/home/op/custom-templates
 ---
 
 # axiom-select
-**Deploy a profile** 
+**Deploy a profile** :mechanical_arm:
 
 ```bash
 axiom-select '<instance>'
