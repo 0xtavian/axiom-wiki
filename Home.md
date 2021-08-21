@@ -11,3 +11,7 @@ Most of the usage of this project has occurred in the red-team & bug bounty spac
 This is *not* a competitor of things like Terraform and Ansible, they're both fantastic technologies and you should use them! Tools like Terraform, however, do not lend themselves to being easily modifiable on the fly. For infrastructure, application deployment, and general management it is fantastic. For splitting an input dynamically and scaling to process the input, axiom is king (in my opinion :D).
 
 Please refer to the sidebar on the right, there is a quick run-down of different ways to use axiom. 
+
+### Want to contribute to this Wiki?
+
+[Fork it and send a pull request.](https://github.com/0xtavian/axiom-wiki/)
