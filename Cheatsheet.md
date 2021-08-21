@@ -1,25 +1,25 @@
 # Cheatsheet
 
-I've put together a little cheatsheet to help you on your way!
+A little cheatsheet to help you on your way!
 
 
 ---
 # axiom-build 
 **Pick a Packer provisioner** :hatching_chick:
-> You must run axiom-configure before anything else. THis creates your axiom.json file which is required by other commands.
+> You must run axiom-configure before anything else. This creates your axiom.json file which is required by other commands.
 ```
 axiom-build
 ```
 > We currently offer [three](https://github.com/pry0cc/axiom/tree/master/images/provisioners) different base images you can provision, and 2 custom images. 
-> - [Default](https://github.com/pry0cc/axiom/blob/master/images/provisioners/default.json) provisioner comes with all tools installed.
+> - [Default](https://github.com/pry0cc/axiom/blob/master/images/provisioners/default.json) is our latest iteration of axiom provisioners. It comes with all tools installed and has been optimized for readability. Recommended for axiom-feet.
 > - [ReconFTW](https://github.com/pry0cc/axiom/blob/master/images/provisioners/reconftw.json) provisioner comes with all tools installed. 
 > - [Barebones](https://github.com/pry0cc/axiom/blob/master/images/provisioners/barebones.json) provisioner comes with no tools installed and is just the base ubuntu image.
 
 > Custom Images:
-> - [Full](https://github.com/pry0cc/axiom/blob/master/images/provisioners/full.json) provisioner comes with only tools with [modules](https://github.com/pry0cc/axiom/tree/master/modules) availabled. Reccomended for axiom-feet.
-> - [Light](https://github.com/pry0cc/axiom/blob/master/images/provisioners/light.json) provsioner comes with zsh and a few other minor adjustments over the barebones provsioner. 
-> If you want to bring-your-own Packer JSON provisioner, select custom. *Make sure your packer json is placed in ~/.axiom/images/provsioners*
+> - [Classic](https://github.com/pry0cc/axiom/blob/master/images/provisioners/classic.json) provisioner comes with most module and it the first iteration of axiom provisioners.
+> - [Light](https://github.com/pry0cc/axiom/blob/master/images/provisioners/light.json) provisioner comes with zsh and a few other minor adjustments over the barebones provisioner. 
 ---
+* If you want to bring-your-own Packer JSON provisioner, select custom. Make sure your packer json is placed in ~/.axiom/images/provisioners
 # axiom-init
 **Initialize a single instance** :seedling:
 
@@ -35,7 +35,7 @@ axiom-init <name> --deploy=<profile> --restore=<box> # Init & deploy & restore
 **Connect to an instance** - axiom-connect**
 
 ```bash
-axiom-connect #automatically connects to list intialized instance
+axiom-connect #automatically connects to list initialized instance
 axiom-connect <name>
 axiom-ssh <name> <ssh args>
 axiom-ssh <name> --tmux
@@ -63,7 +63,7 @@ axiom-backup
 axiom-sync instance01
 ```
 
-> This allows you to download a copy of everything in an axiom instance to you local filesystem
+> This allows you to download a copy of everything in an axiom instance to the local filesystem
 
 ---
 
@@ -101,16 +101,21 @@ axiom-region select ams2
 ```bash
 axiom-account-setup # Setup a new account
 axiom-account # No args, list available accounts
-axiom-account <account> # Select/Switch to the specifed account
+axiom-account <account> # Select/Switch to the specified account
 ```
 ---
 
 # axiom-scp
 **Copy files to and from hosts** 
-> Copy a remote file from all instances in myfleet to local folder. `'$name'` must be wrapped single quotes. `'$name'` is a required literal string and gets interpolated from the instance name. <br>
+> Copy a remote file from all instances in myfleet to local file. `'$name'` must be wrapped single quotes. `'$name'` is a required literal string and gets interpolated from the instance name. <br>
 
 ```
 axiom-scp 'myfleet*':/home/op/myfile.txt '~/local/folder/$name.txt'
+```
+> Copy a remote folder from all instances in myfleet to local folder. `'$name'` must be wrapped single quotes. `'$name'` is a required literal string and gets interpolated from the instance name. <br>
+
+```
+axiom-scp 'myfleet*':/home/op/myfile/ '~/local/folder/$name'
 ```
 
 > Copy a remote file from one instance 'myfleet05' to a local file <br>
@@ -139,7 +144,7 @@ axiom-scp mytemplates/ 'myfleet*':/home/op/custom-templates
 axiom-select '<instance>'
 axiom-select 'testy*'  # Testy is an example of a fleet
 axiom-deploy openvpn # Install openvpn against host or fleet
-axiom-deploy covenant # Install covenent
+axiom-deploy covenant # Install covenant
 ```
 
 > All profiles can be found in `~/.axiom/profiles`
