@@ -10,7 +10,7 @@ A little cheatsheet to help you on your way!
 ```
 axiom-build
 ```
-> We currently offer [three](https://github.com/pry0cc/axiom/tree/master/images/provisioners) different base provisioner files, and 2 custom provisioner file to build images. 
+> We currently offer [three](https://github.com/pry0cc/axiom/tree/master/images/provisioners) different base provisioner files, and two custom provisioner files to build images. 
 > - [Default](https://github.com/pry0cc/axiom/blob/master/images/provisioners/default.json) is our latest iteration of axiom provisioners. It comes with all tools installed and has been optimized for readability. Recommended for axiom-feet.
 > - [ReconFTW](https://github.com/pry0cc/axiom/blob/master/images/provisioners/reconftw.json) provisioner includes all tools in ReconFTW and works with all modules. Recommended for reconftw_axiom.sh. 
 > - [Barebones](https://github.com/pry0cc/axiom/blob/master/images/provisioners/barebones.json) is our decently secure base install, comes with Docker, Go-lang, Interlace and nmap installed. Recommended for templating.
