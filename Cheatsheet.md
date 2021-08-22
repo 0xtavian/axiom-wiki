@@ -16,7 +16,7 @@ axiom-build
 > - [Barebones](https://github.com/pry0cc/axiom/blob/master/images/provisioners/barebones.json) is our decently secure base install, comes with Docker, Go-lang, Interlace and nmap installed. Recommended for templating.
 
 > Custom Images:
-> - [Classic](https://github.com/pry0cc/axiom/blob/master/images/provisioners/classic.json) provisioner comes with most module and it the first iteration of axiom provisioners.
+> - [Classic](https://github.com/pry0cc/axiom/blob/master/images/provisioners/classic.json) provisioner works with most modules and was the first iteration of axiom provisioner files.
 > - [Light](https://github.com/pry0cc/axiom/blob/master/images/provisioners/light.json) provisioner comes with zsh and a few other minor adjustments over the barebones provisioner. 
 ---
 * If you want to bring-your-own Packer JSON provisioner, select custom. Make sure your packer json is placed in ~/.axiom/images/provisioners
