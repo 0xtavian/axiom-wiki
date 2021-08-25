@@ -1,13 +1,13 @@
 # Horizontal vs Vertical Scaling
-While most modules are designed to scan a lot of targets, any module can be rewritten to scan one target with the combined power of the entire fleet.
+While most modules are designed to scan a lot of targets (vertical scaling), any module can be rewritten to scan one target with the combined power of the entire fleet (horizontal scaling).
 
 With axiom-scan modules, most of the time we are splitting a target list (a bunch of IPs for example) and uploading parts of the target list to every instance, but if we wanted to do something like brute force one target with 5 axiom instances, we can do that by splitting a wordlist instead.
 
-## Vertical Scaling - Many to Many
-
 By rearranging the special `input` variable in the module to point to a wordlist instead of a target list, axiom-scan will split the word list and run it against the target you hardcoded in the module or specified inline.
 
-For example: the following puredns module spits a target list and brute forces each target with the entire wordlist.
+## Vertical Scaling - Many to Many
+
+The following puredns module spits a target list and brute forces each target with the entire wordlist.
 
 ```
 [{
@@ -29,7 +29,7 @@ Adding the  special `_wordlist_` variable in the module allows axiom-scan to cha
 ```
 Example: `axiom-scan myrootdomains.txt -m puredns -w /home/op/lists/SecLists/Discovery/DNS/bitquark-subdomains-top100000.txt -o myresults`
 
-Both modules above are examples of vertical scaling. We take the targetlist e.g. `myrootdomains.txt`, split and upload parts of the target list to every instance and brute force the targets with the entire wordlist.
+Both modules above are examples of vertical scaling. We take the target list e.g. `myrootdomains.txt`, split and upload parts of the target list to every instance and brute force the targets with the entire wordlist.
 
 
 ## Horizontal Scaling - Many to One
