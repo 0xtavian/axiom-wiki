@@ -53,4 +53,3 @@ Alternative you could have a module without the hardcoded target and instead spe
 ```
 Example: `axiom-scan bitquark-subdomains-top100000.tx -m puredns tesla.com -o myoutput.txt`
 
-
