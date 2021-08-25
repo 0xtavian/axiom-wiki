@@ -3,7 +3,7 @@ While most modules are designed to scan a lot of targets, any module can be rewr
 
 With axiom-scan modules, most of the time we are splitting a target list (a bunch of IPs for example) and uploading parts of the target list to every instance, but if we wanted to do something like brute force one target with 5 axiom instances, we can do that by splitting a wordlist instead.
 
-## Vertical Scaling
+## Vertical Scaling - Many to Many
 
 By rearranging the special `input` variable in the module to point to a wordlist instead of a target list, axiom-scan will split the word list and run it against the target you hardcoded in the module or specified inline.
 
@@ -32,7 +32,7 @@ Example: `axiom-scan myrootdomains.txt -m puredns -w /home/op/lists/SecLists/Dis
 Both modules above are examples of vertical scaling. We take the targetlist e.g. `myrootdomains.txt`, split and upload parts of the target list to every instance and brute force the targets with the entire wordlist.
 
 
-## Horizontal Scaling
+## Horizontal Scaling - Many to One
 If we wanted to horizontally scale e.g targeting one host with the combined power of the entire fleet, lets look at the next example:
 ```
 [{
