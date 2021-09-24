@@ -41,9 +41,9 @@ $HOME/.axiom/interact/axiom-configure
 ```
 ## Azure Az cli installation issues with Kali rolling-release
 
-Azure cli fails to recognize and install on Kali rolling-release. It is recommended to use the current distribution version Kali. 
+This is applicable to the scenario, where you select Azure as provider for Axiom. Then, during the Axiom config run, Azure cli package will be installed. But, the install script for Azure cli fails to recognize, and install on Kali rolling-release.
 
-First find the Kali release / kernel version:
+It is recommended to use the current distribution version Kali. First find the Kali release / kernel version:
 
 ```
 $ lsb_release -a
@@ -76,6 +76,7 @@ sudo apt-get install azure-cli
 
 After this proceed with the normal installation step and follow the instructions:
 `bash <(curl -s https://raw.githubusercontent.com/pry0cc/axiom/master/interact/axiom-configure)`
+
 
 # Troubleshooting
 If an error is occurring recently, please run axiom-update successfully before reporting an issue.
