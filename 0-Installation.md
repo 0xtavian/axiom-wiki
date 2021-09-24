@@ -39,6 +39,43 @@ Run configure script
 ```
 $HOME/.axiom/interact/axiom-configure
 ```
+## Azure Az cli installation issues with Kali rolling-release
+
+Azure cli fails to recognize and install on Kali rolling-release. It is recommended to use the current distribution version Kali. 
+
+First find the Kali release / kernel version:
+
+```
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Kali
+Description:    Kali GNU/Linux Rolling
+Release:        2021.3
+Codename:       kali-rolling
+
+$ uname -a 
+Linux kali 5.10.0-kali9-amd64 #1 SMP Debian 5.10.46-4kali1 (2021-08-09) x86_64 GNU/Linux
+```
+This Kali version is based on Debian stable release - `buster`. For any future, newer versions, simply find the Debian release name.
+You will need to set the `AZ_REPO` environment variable to this release, say `buster`.
+
+Follow these steps:
+```
+sudo apt remove azure-cli -y && sudo apt autoremove -y
+sudo apt-get update
+sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
+curl -sL https://packages.microsoft.com/keys/microsoft.asc |
+    gpg --dearmor |
+    sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+export AZ_REPO=buster
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
+    sudo tee /etc/apt/sources.list.d/azure-cli.list
+sudo apt-get update
+sudo apt-get install azure-cli
+```
+
+After this proceed with the normal installation step and follow the instructions:
+`bash <(curl -s https://raw.githubusercontent.com/pry0cc/axiom/master/interact/axiom-configure)`
 
 # Troubleshooting
 If an error is occurring recently, please run axiom-update successfully before reporting an issue.
