@@ -1,28 +1,10 @@
-To install axiom, all you have to do is ensure that you have all the right dependencies and then run the configuration script.
-
-## Dependencies
-- Digital Ocean API Key - (Personal Access Token) - https://cloud.digitalocean.com/account/api/tokens
-- SSH Keypair (I recommend using a key without a passphrase for speed, even if used just for Axiom.)
-- git
-- curl
-- ruby
-- jq - 1.6 
-- packer - Tested with v1.5.6
-- doctl 
-- Interlace - https://github.com/codingo/Interlace
-- rsync
-- lsb_release - Tested with 1.4 (but any version should be ok)
-- fzf (If you want menus)
-
-Once you have these all installed, run the following command and enter your DigitalOcean API key
-
 ## Easy Install 
-Run this command, as your standard user, not as root.
+As a standard user with root privileges, run this command on any [supported](https://github.com/pry0cc/axiom#operating-systems-supported]) OS. The script will prompt for sudo when root when required.
 ```
 bash <(curl -s https://raw.githubusercontent.com/pry0cc/axiom/master/interact/axiom-configure)
 ```
 
-## Manual
+## Using Git Clone
 In most cases, the easy install should work, however, if you do want to install manually, this guide is your friend!
 
 Ensure that ~/.axiom/ does not exist
@@ -39,6 +21,22 @@ Run configure script
 ```
 $HOME/.axiom/interact/axiom-configure
 ```
+## Manual
+To install axiom on an OS that is not on our [supported](https://github.com/pry0cc/axiom#operating-systems-supported]) list, all you have to do is ensure that you have all the right dependencies and then run the configuration script.
+
+## Dependencies
+- Digital Ocean API Key - (Personal Access Token) - https://cloud.digitalocean.com/account/api/tokens
+- SSH Keypair (I recommend using a key without a passphrase for speed, even if used just for Axiom.)
+- git
+- curl
+- ruby
+- jq - 1.6 
+- packer - Tested with v1.5.6
+- doctl 
+- Interlace - https://github.com/codingo/Interlace
+- rsync
+- lsb_release - Tested with 1.4 (but any version should be ok)
+- fzf (If you want menus)
 
 # Troubleshooting
 If an error is occurring recently, please run axiom-update successfully before reporting an issue.
