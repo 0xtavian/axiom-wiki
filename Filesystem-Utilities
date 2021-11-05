@@ -1,17 +1,32 @@
 # Filesystem Utilities 
 
-Filesystem utilities to help you interact with interact with the instances!
+Filesystem utilities to help you interact with axiom instances!
+
+# axiom-configure 
+**Install axiom** <br>
+```
+axiom-configure
+```
+You can provide your config inline or after running `axiom-configure`. <br>
+
+`
+axiom-configure --config { "do_key": "[redacted]", "region": "nyc1", "provider": "do", "default_size": "s-1vcpu-1gb", "appliance_name": "", "appliance_key": "", "appliance_url": "", "email": "", "op": "[redacted]", "imageid": "axiom-default-myimageid", "provisioner": "default", "sshkey": "id_rsa" }
+`
+<br>
+>  To get your account.json config file in this format run: `cat ~/.axiom/accounts/do.json | tr '\n' ' ' | tr -s ' '`
 
 ---
 # axiom-build 
 **Pick a Packer provisioner** :hatching_chick:
 > You must run axiom-configure before anything else. This creates your axiom.json file which is required by other commands.
 ```
-axiom-build
+axiom-build default
 ```
+You can provide your provisioner inline or after running `axiom-build`.
+
 > We currently offer [three](https://github.com/pry0cc/axiom/tree/master/images/provisioners) different base provisioner files, and 2 custom provisioner file to build images. 
-> - [Default](https://github.com/pry0cc/axiom/blob/master/images/provisioners/default.json) is our latest iteration of axiom provisioners. It comes with all tools installed and has been optimized for readability. Recommended for axiom-feet.
-> - [ReconFTW](https://github.com/pry0cc/axiom/blob/master/images/provisioners/reconftw.json) provisioner includes all tools in ReconFTW and works with all modules. Recommended for reconftw_axiom.sh. 
+> - [Default](https://github.com/pry0cc/axiom/blob/master/images/provisioners/default.json) is our latest iteration of axiom provisioners. It comes with all tools installed and has been optimized for readability. Recommended for axiom-fleet.
+> - [ReconFTW](https://github.com/pry0cc/axiom/blob/master/images/provisioners/reconftw.json) provisioner includes all tools in ReconFTW and works with most modules. Recommended for ReconFTW.
 > - [Barebones](https://github.com/pry0cc/axiom/blob/master/images/provisioners/barebones.json) is our decently secure base install, comes with Docker, Go-lang, Interlace and nmap installed. Recommended for templating.
 
 > Custom Images:
@@ -19,8 +34,68 @@ axiom-build
 > - [Light](https://github.com/pry0cc/axiom/blob/master/images/provisioners/light.json) provisioner comes with zsh and a few other minor adjustments over the barebones provisioner. 
 ---
 * If you want to bring-your-own Packer JSON provisioner, select custom. Make sure your packer json is placed in ~/.axiom/images/provisioners
+
+# axiom-images
+**Manage images/snapshots with axiom-images** :cd:
+#
+<details>
+  <summary>axiom-images usage</summary>
+  
+  ``` 
+Examples: axiom-images ls && axiom-images rm axiom-barebones-1634682130 && axiom-images use axiom-default-1634682131
+ Usage:
+ ls                                      List snapshots created
+ get                       Display info about the current image
+ use | set              Use snapshot for axiom-init/axiom-fleet
+ rm                                Remove snapshot from account
+ help | --help | -h                        Print this help menu
+  ```
+</details>
+
+```bash
+axiom-images ls # List available images
+axiom-images use <image name> # Replace image used for axiom-init/axiom-fleet with user provided image name 
+axiom-images rm <image name> # Delete image by name
+```
+---
+
 # axiom-init
 **Initialize a single instance** :seedling:
+#
+<details>
+  <summary>axiom-init usage</summary>
+  
+  ```
+Description:
+  Initialize one axiom instance with differnet options, such as image, region, size and axiom deployment profile
+Examples:
+  axiom-init # provision instance with random name
+  axiom-init --deploy desktop # provision instance with random name, then deploy axiom profile 'desktop'
+  axiom-init testy01 # provision instance named testy01
+  axiom-init stok01 --region nyc3 --image axiom-barebones-1635920849 --size s-1vcpu-2gb --deploy desktop --shell
+Usage:
+  <name> string (optional)
+    Name of the instance, supplied as a positional first argument
+  --image <image name>
+    Manually set the image to use (default is imageid in ~/.axiom/axiom.json)
+  --region <region>
+    User specified region to use (default is region in ~/.axiom/axiom.json)
+  --deploy <profile>
+    Deploy a profile after initialization (e.g desktop, openvpn, bbrf, wireguard)
+  --shell (optional)
+    Connect to instance after initialization
+  --size <vm size>
+    VM size to use  (default is size in ~/.axiom/account/account.json)
+  --no-select (optional)
+    Dont select instance after initialization (default is to select instance)
+  --domain <example.com>
+    Manually specify the domain to use (default is specified by cloud provider)
+  --restore <backup>
+    Initialize with a previous backup
+  --help
+    Display this help menu
+  ```
+</details>
 
 ```bash
 axiom-init <name> # Init
@@ -30,8 +105,46 @@ axiom-init <name> --deploy=<profile> --restore=<box> # Init & deploy & restore
 > the `--deploy` option allows you to deploy a profile (stored in `~/.axiom/profiles/`). `--restore` will restore a profile. These options can be used together.
 
 ---
-# axiom-ssh
-**Connect to an instance** - axiom-connect**
+# axiom-ssh 
+**Connect to an instance - axiom-ssh or axiom-connect** :link:
+# 
+<details>
+  <summary>axiom-ssh usage</summary>
+  
+  ```
+Description:
+  axiom-ssh dynamically generates axiom's SSH config based on your cloud inventory.
+  axiom-ssh allows you to connect to your axiom instances over their public or private network interface.
+  axiom-ssh can drop you right into a freshly created tmux session on the remote instance, and can be used to
+  attach to a preexisting tmux session.
+  All additional SSH args are passed to SSH.
+Examples:
+  axiom-ssh testy01 # SSH into instance testy01
+  axiom-ssh testy01 --tmux mysession1 # SSH into instance testy01 and spawn or attach to session named mysession1
+  axiom-ssh --just-generate # Always populate axiom's ssh config (located in ~/.axiom/.sshconfig) with public Ip details
+  axiom-ssh --just-generate private # Always populate axiom's ssh config (located in ~/.axiom/.sshconfig) with private Ip details
+  axiom-ssh --just-generate cache # Never regenerate axiom's ssh config
+  axiom-ssh testy01 -L 8080:127.0.0.1:8080 -D 4040  # Port-forward 8080 to local port 8080 and dynamically port foward port 4040 to testy01
+Usage:
+  <instance name> required string
+    Instance name supplied as a positional first argument
+  --mosh/-m <instance name> (optional)
+    Connect with mosh
+  --just_generate <public, private, cache> (optional)
+    Specify when to generate the SSH config file and what IPs to use. Options are public, private, cache ( default is public )
+  --tmux <tmux session name to create>
+    Connect to your instance and start new tmux session. If you dont include a session name one will be chosen automatically for you
+  --tmux-attach/-t <tmux session> (optional)
+    Connect to your instance and attach to tmux session by name
+  --cache (optional)
+    Temporarily do not generate SSH config and instead connect with cached SSH config
+  --help (optional)
+    Display this help menu
+  <additional args>
+    All additional SSH args are passed to SSH. If you want additional arguments supplied to your command, simply append them to the command
+    example: axiom-ssh <name> -L 8080:127.0.0.1:8080 -D 4040
+  ```
+</details>
 
 ```bash
 axiom-connect #automatically connects to list initialized instance
@@ -42,21 +155,22 @@ axiom-ssh <name> -m -t=<tmux session> # Connect with mosh and attach to tmux ses
 axiom-ssh <name> -m -t=main-15
 axiom-ssh <name> -L 8080:127.0.0.1:8080 -D 4040 # All additional SSH args are passed to SSH
 axiom-ssh <name> --cache # Don't generate ssh config, just connect with cache
-axiom-ssh --just-generate # Generate an SSH config at ~/.axiom/.sshconfig
+axiom-ssh --just-generate # Will populate the SSH config at ~/.axiom/.sshconfig with public IPs instances on the account
+axiom-ssh --just-generate private # Will populate the SSH config at ~/.axiom/.sshconfig with private IPs instances on the account
+axiom-ssh --just-generate cache # Will permanently avoid regenerating the SSH configs. To revert run: axiom-ssh --just-generate public or just axiom-ssh --just-generate
 ```
----
-# axiom-backup
-**Backup an initialized instance to the cloud** :luggage:
 
-```bash
+---
+# axiom-backup 
+**Backup an initialized instance to the cloud** :luggage:
 axiom-backup 
-```
+```bash
 
 > After running axiom-init you can set up config files, unique wordlists, private tools etc, take a snapshot of that image and use it to deploy future axiom instances/fleets. 
 
 ---
 # axiom-sync
-**Backup the home directory of an initialized instance to the local filesystem**
+**Backup the home directory of an initialized instance to the local filesystem** :arrows_counterclockwise:
 
 ```bash
 axiom-sync instance01
@@ -65,7 +179,46 @@ axiom-sync instance01
 > This allows you to download a copy of everything in an axiom instance to the local filesystem
 
 ---
+# axiom-power
+**Power on, off and reboot instances and fleets with axiom-power.** :electric_plug:	
+#
+<details>
+  <summary>axiom-power usage</summary>
+  
+  ```
+ Usage: axiom-power on 'rez\*'  #turns on instances starting with 'rez'
+  axiom-power off '\*'    #turns off all instances
+  Examples:
+  on                             Power on instance by instance name
+  off                           Power off instance by instance name 
+  reboot                           Reboot instance by instance name
+  help | --help | -h                           Print this help menu
+  ```
+</details>
 
+
+```bash
+axiom-power on 'rez\*' # Power on all instances in fleet named rez
+axiom-power off 'rez\*' # Power off rez fleet
+axiom-power reboot 'rez\*' # Reboot rez fleet
+
+```
+
+---
+# axiom-rm
+**Remove one or more axiom instances** :x:
+
+```bash
+axiom-rm <name> # Delete box by specifying the name
+axiom-rm <name> -f # Forcibly delete box by specifying the
+axiom-rm <name>\* # Delete all instances that start with <name>. You must escape the asterisk.  
+axiom-rm <name>\* -f # Forcibly delete all instances that start with <name>. You must escape the asterisk.  
+axiom-rm '\*' # Delete all instances on the account. Must be wrapped in single quote and escape the asterisk. 
+axiom-rm '\*' -f # Forcibly delete all instances on the account. Must be wrapped in single quote and escape the asterisk. 
+
+
+```
+---
 # axiom-boxes
 **List all box backups** :brain:
 
@@ -95,7 +248,7 @@ axiom-region select ams2
 ---
 
 # axiom-account
-**Manage user accounts** 
+**Manage user accounts** :name_badge:
 
 ```bash
 axiom-account-setup # Setup a new account
@@ -105,7 +258,29 @@ axiom-account <account> # Select/Switch to the specified account
 ---
 
 # axiom-scp
-**Copy files to and from hosts** 
+**Copy files to and from hosts** :arrow_heading_up:
+
+#
+<details>
+  <summary>axiom-scp usage</summary>
+  
+  ```
+ --cache (optional)
+    Do not regenerate SSH config
+-F (string)
+    Path of custom SSH config file to use
+Example Usage: axiom-scp 'myfleet*':/home/op/myfile.txt '~/local/folder/$name.txt' --cache
+    Copy a remote file from all instances in myfleet to local folder. Do no generate SSH config
+    $name must be wrapped single quotes. $name is a required literal string and gets interpolated from the instance name.
+Example Usage: axiom-scp myfleet05:/home/op/myfile-from-myfleet05.txt '~/local/folder/myfile-from-myfleet05.txt' 
+    Copy a remote file from one instance 'myfleet05' to a local file
+Example Usage: axiom-scp myfile.txt 'myfleet*':/home/op/myfile.txt 
+    Copy a local file to all instances in myfleet
+Example Usage: axiom-scp mytemplates/ 'myfleet*':/home/op/custom-templates 
+    Copy a local folder to all instances in myfleet
+  ```
+</details>
+
 > Copy a remote file from all instances in myfleet to local file. `'$name'` must be wrapped single quotes. `'$name'` is a required literal string and gets interpolated from the instance name. <br>
 
 ```
@@ -157,7 +332,7 @@ docker ps
 ```
 ---
 # axiom-vpn
-**Connect to an OpenVPN Server Deployed by Axiom** 
+**Connect to an OpenVPN Server Deployed by Axiom** :signal_strength:
 
 ```bash
 axiom-vpn <instance>
@@ -167,7 +342,7 @@ axiom-vpn <instance>
 
 
 # axiom-proxy
-**Proxy through a set of hosts (or one)**
+**Proxy through a set of hosts (or one)** :twisted_rightwards_arrows:
 ```bash
 axiom-proxy '<fleet>*'
 axiom-proxy '<instance>'
@@ -193,17 +368,105 @@ axiom-dns add cisco navisec.xyz 167.71.89.136 # Example, this will create a reco
 
 # axiom-fleet
 **Initialize a fleet** :rocket:  
+#
+<details>
+  <summary>axiom-fleet usage</summary>
+  
+  ``` 
+Description:
+  Spin up fleets of axiom instances in one or multiple regions.
+  Specify the name of your fleet (fleet prefix) or have axiom choose for you.
+Examples:
+  axiom-fleet # Spin up three instances, let axiom decide on the fleet prefix
+  axiom-fleet javis -i 10 # Spin up 10 instances with a fleet prefix of javis, this will create 10 instances named javis01 to javis10.
+  axiom-fleet jerry -i 25 --regions nyc1,lon1,ams3,fra1 # Spin up 25 instances using round robbin region distribution
+Usage:
+  -i/--instances <integer>
+    The number of instances to spin up
+  -r/--regions <regions> (optional)
+    Supply comma-separated regions to cycle through ( default get region from ~/.axiom/axiom.json)
+  --help (optional)
+    Display this help menu
+  ```
+</details>
+
+
 
 ```bash
-axiom-fleet -i=13 # Initialize a fleet, name it randomly
-axiom-fleet testy -i=8 # Initialize a fleet named 'testy', instances will be named, testy01, test02 etc
-axiom-fleet testy -i=10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using round-robin region distribution  
+axiom-fleet -i 13 # Initialize a fleet, name it randomly
+axiom-fleet testy -i 8 # Initialize a fleet named 'testy', instances will be named, testy01, test02 etc
+axiom-fleet testy -i 10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using round-robin region distribution  
 ```
 
 ---
 
 # axiom-scan
 **Scanning using a fleet** :rocket: 
+#
+<details>
+  <summary>axiom-scan usage</summary>
+  
+  ```               _
+  ____ __  __(_)___  ____ ___        ______________ _____
+ / __ `/ |/_/ / __ \/ __ `__ \______/ ___/ ___/ __ `/ __ \
+/ /_/ />  </ / /_/ / / / / / /_____(__  ) /__/ /_/ / / / /
+\__,_/_/|_/_/\____/_/ /_/ /_/     /____/\___/\__,_/_/ /_/
+
+                                    @pry0cc
+                                 & @0xtavian
+
+Input file does not exist, please specify one as the first argument... 
+Usage of axiom-scan
+Example Usage: axiom-scan ips.txt -m nmap -T4 --top-ports 2000 -oX output.xml
+  --list (optional)
+    List available modules
+  <input> required string
+    Input file, supplied as a positional first argument
+  -m required string
+    Module to use to scan (e.g masscan, nmap, gowitness, ffuf)
+  --dont-shuffle (optional)
+    Do not randomize input file before uploading (default is to randomize)
+  --dont-split (optional)
+    Do not split input file, upload entire input file to every instance (default is to split the target list)
+  -wL /path/to/local
+    Wordlist Local to use to scan with (must be a path to a local wordlist)
+  -wD/--distribute-wordlist (optional, depends on -wL)
+    When using -wL, split and upload local wordlist (default is to not split the wordlist)
+  -w /path/to/wordlist/on/instance
+    Wordlist to use to scan with (must be a path to a remote wordlist)
+  -o string
+    Output to default output (whatever that is for the module)
+  -oX string
+    Output in XML/HTML, supported in (nmap & masscan)
+  -oG string
+    Output to greppable output (will merge and sort unique)
+  -oD/-oA string
+    Output results to directory
+  -F string (optional)
+    Custom SSH configuration file to launch fleet from
+  --fleet string (optional)
+    Fleet to use, will use axiom-select by default.
+  --spinup int (optional)
+    How many instances to spin up
+  --rm-when-done (optional)
+    Delete selected instances when scan is complete.
+  --rm-logs (optional)
+    Delete remote and local logs when finished (default keeps all logs)
+  --shutdown-when-done (optional)
+    Shutdown selected instances when scan is complete.
+  --debug (optional)
+    Enable debug mode (VERY VERBOSE!)
+  --quiet
+    Enable quiet mode (placeholder: does not work)
+  --cache
+    Do not regenerate SSH config
+  --help (optional)
+    Display this help menu
+  <additional args>
+    If you want additional arguments supplied to your command, simply append them to the command!
+  ```
+</details>
+
 *Modules are in `~/.axiom/modules/`*
 
 ```bash
@@ -229,6 +492,21 @@ axiom-scan ips.txt -m masscan -oG masscan.txt # Run masscan
 
 # axiom-exec
 **Execute a command against an Instance** :robot:
+#
+<details>
+  <summary>axiom-exec usage</summary>
+  
+  ``` Usage of axiom-exec
+Example Usage: axiom-exec 'id' 'my-fleet*' --cache
+  <commands> required positional string
+   Commands to run on the remote axiom instances, wrapped in single or double quotes
+  <fleet prefix> positional string
+   The instance or fleet name to execute the command on, supports wildcard (i.e myfleet*), wrapped in signle or double quotes
+  --cache positional option
+    Use SSH cache (works if recently interacted with)
+  ```
+</details>
+
 
 ```bash
 axiom-exec '<command>' '<instance>' # Execute a command against an instance
