@@ -135,6 +135,61 @@ If you supply an argument, it will be used as the instance name, in the above ex
 Now you have spun up an instance, you can run `axiom-ls` and get a list of all running instances.
 ### List your instances -  `axiom-ls`
 
+---
+
+
+# axiom-exec
+**Execute a command against an Instance** :robot:
+#
+<details>
+  <summary>axiom-exec usage</summary>
+  
+  ``` 
+Description:
+  Evaluate shell one-liners or execute single commands on one or more instances in parallel                                                                                                                       
+  Expand local and remote environment variables respectively                                                                                                                                                      
+  Specify the fleet prefix, or let axiom use selected.conf by default (located in ~/.axiom/selected.conf)                                                                                                         
+  Optionally execute command(s) in a detached tmux session on the remote instances (commands run in the background)                                                                                               
+  Temporarily prevent axiom's SSH key regeneration and instead connect with a cached SSH config (default is ~/.axiom/.sshconfig)                                                                                  
+Examples:                                                                                                                                                                                                         
+  axiom-exec id # Execute command id across all instances currently selected.conf (located in ~/.axiom/selected.conf)
+  axiom-exec ifconfig --fleet testy # Execute ifconfig on testy fleet. Automatically select all instances in fleet testy
+  axiom-exec sleep "$(($RANDOM % 10))" "&& id &&" echo $HOSTNAME --fleet stok # Evaluate complex one-liners on fleet stok
+  axiom-exec 'sudo apt dist-upgrade -y' -q --cache --fleet OtherFleet --tmux MySession01 # Quietly execute command(s) inside a detacted tmux session on the remote instances with custom session name
+  axiom-exec whoami -q --cache --sshconfig ~/.axiom/log/exec/axiom-exec+1234567890/sshconfig --fleet oldfleet --tmux # Specify the axiom SSH config to use (default is ~/.axiom/.sshconfig)
+Usage:
+  <commands> required string
+    Command(s) to run on the remote axiom instances, multiple commands can be wrapped in single or double quotes, but not required
+  -f/--fleet <fleet prefix>
+    Fleet prefix to execute on (default is ~/.axiom/selected.conf). Automatic wildcard support
+  -i/--instance <instance name>
+    Single instance to execute on
+  --tmux <optional tmux session name>
+    Execute commands in a detacted tmux session (commands run in the background). The default tmux session name is axiom-exec+$TIMESTAMP, or supply a custom tmux session name
+  --sshconfig <sshconfig_file> (optional string)
+    Path to axiom's SSH config (default is ~/.axiom/.sshconfig)
+  -q/--quiet
+    Disable progress bar, and reduce verbosity
+  --debug
+    Enable debug mode (VERY VERBOSE!)
+  --cache
+    Temporarily do not generate SSH config and instead connect with cached SSH config
+  --logs
+    Do not delete logs (logs will be stored in ~/.axiom/logs/exec/axiom-exec$TIMESTAMP)
+  --help
+    Display this help menu
+
+  ```
+</details>
+
+
+```bash
+  axiom-exec id # Execute command id across all instances currently selected.conf (located in ~/.axiom/selected.conf)
+  axiom-exec ifconfig --fleet testy # Execute ifconfig on testy fleet. Automatically select all instances in fleet testy
+  axiom-exec sleep "$(($RANDOM % 10))" "&& id &&" echo $HOSTNAME --fleet stok # Evaluate complex one-liners on fleet stok
+  axiom-exec 'sudo apt dist-upgrade -y' -q --cache --fleet OtherFleet --tmux MySession01 # Quietly execute command(s) inside a detacted tmux session on the remote instances with custom session name
+  axiom-exec whoami -q --cache --sshconfig ~/.axiom/log/exec/axiom-exec+1234567890/sshconfig --fleet oldfleet --tmux # Specify the axiom SSH config to use (default is ~/.axiom/.sshconfig)
+```
 
 # axiom-ssh 
 **Connect to an instance - axiom-ssh** :link:
