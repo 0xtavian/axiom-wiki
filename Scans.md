@@ -1,7 +1,69 @@
-# `axiom-scan` - Performing distributed scanning, some examples.
+# `axiom-scan` - Performing Distributed Scanning
 
-# NOTICE:
-For axiom-scan v2, which is recently released, the only change syntactically will be the output modes -oX and -oG accordingly, as well as the removal of "=" for variable assignment. A new syntax command for v2 looks as follows:
+```
+              _
+  ____ __  __(_)___  ____ ___        ______________ _____                                                                                                                    
+ / __ `/ |/_/ / __ \/ __ `__ \______/ ___/ ___/ __ `/ __ \                                                                                                                   
+/ /_/ />  </ / /_/ / / / / / /_____(__  ) /__/ /_/ / / / /                                                                                                                   
+\__,_/_/|_/_/\____/_/ /_/ /_/     /____/\___/\__,_/_/ /_/                                                                                                                    
+                                                                                                                                                                             
+                                    @pry0cc                                                                                                                                  
+                                 & @0xtavian                                                                                                                                 
+                                                                                                                                                                             
+axiom-scan provides easy distribution of arbitrary binaries and scripts. 
+axiom-scan splits and uploads user-provided input files (target lists), wordlists and configuration files to every instance.
+axiom-scan executes the same command across all instances, which can be found in the module.
+axiom-scan downloads and merges scan output in a variety of different ways, specified in the module (folder, merged text file, csv etc). 
+individual scans are executed in the background, inside a unique tmux session and scan working directory on the remote instances
+ 
+Usage:
+  axiom-scan [flags]
+
+Flags:
+INPUT:
+   string[]              the first positional argument must always be an input file, this can be a list of URLs, IPs, hostnames, etc
+   --dont-split          do not split input file, upload entire input file to every instance (default is to split the input file)
+   --dont-shuffle        do not randomize input file before uploading (default is to randomize)
+
+MODULE:
+   -m string[]           the axiom-scan module to use with the scan
+   --list                print all available modules
+
+WORDLIST:
+   -w string[]                       replace the string _wordlist_ in a module with a user-provided wordlist (must be a path to a remote wordlist)
+   -wL string[]                      replace the string _wordlist_ in a module with a user-provided local wordlist ( must be a path to a local wordlist)
+   --nuclei-templates string[]       replace the string _wordlist_ in a module with a user-provided local folder
+   -wD,--distribute-wordlist         requires -wL, when using -wL, split and upload local wordlist (default does not split the wordlist)
+
+CONFIGURATIONS:
+   --config string[]                 replace the string _config_ in a module with a user-provided configuration file (must be a configuration file on the remote instances)
+   --local-config string[]           replace the string _config_ in a module with a user-provided local configuration file to upload ( must be a local configuration file)
+
+OUTPUT:
+   -o string[]          output as default (the first ext mentioned in the module) 
+   -oD string[]         output as directory (must also be supplied in the module using "ext":"dir" or "ext":"")
+   -oX string[]         output as XML/HTML (supported for nmap and masscan)(must also be supplied in the module using "ext":"xml")
+   -oG string[]         output as greppable, merge and sort unique (must also be supplied in the module using "ext":"oG")
+   -csv string []       output as csv, extract csv header, merge and sort unique (must also be supplied in the module using "ext":"csv")
+   -anew string[]       pipe the output to anew before creating the final output file
+   --quiet              do not display findings to terminal
+   --rm-logs            delete remote and local logs after scan completes
+
+FLEET:
+   --fleet string[]            supply fleet prefix to use (default uses instances in /root/.axiom/selected.conf)
+   --spinup int[]              number of instances to spin up prior to scanning (default uses instances in /root/.axiom/selected.conf)
+   --rm-when-done              delete the selected instances after the scan completes
+   --shutdown-when-done        shutdown the selected instance after the scan completes
+   -F string[]                 path to custom SSH config file (default is located at /root/.axiom/.sshconfig)
+   --cache                     do not regenerate SSH config prior to scan, instead use cached config (located at /root/.axiom/.sshconfig)
+
+DEBUG:
+   --debug              run with set -xv, warning: very verbose
+
+EXTRA ARGS:
+   string[]             supply additional arguments to be passed to the module
+
+```
 
 ```
 axiom-scan roots.txt -m subfinder -o subs.txt --threads 3
@@ -21,12 +83,6 @@ axiom-scan hosts.txt -m httpx -o http.txt
 
 axiom-scan http.txt -m gowitness -o screenshots
 axiom-scan http.txt -m ffuf -o content.csv --threads 2
-```
-
-As of right now, the below modules are  as follows:
-```
-amass.json   dnsgen.json  ffuf.json      gau.json     gowitness.json  masscan.json  meg.json    nmapx.json   shuffledns.json  subfinder.json
-dalfox.json  dnsx.json    gospider.json  httpx.json   massdns.json    nmap.json     nuclei.json soxy.json    tlscout.json
 ```
 
 To perform a simple masscan across a list of IP addresses, run:
