@@ -1,3 +1,9 @@
+## Docker
+This will create a docker container, initiate axiom-configure and axiom-build and then drop you out of the docker container. After a Packer image is successfully created, you will likely have to re-exec into your docker container.
+```
+docker exec -it $(docker run -d -it ubuntu) sh -c "apt update && apt install git -y && git clone https://github.com/pry0cc/axiom ~/.axiom/ && cd && .axiom/interact/axiom-configure"
+```
+
 ## Easy Install 
 As a standard user with root privileges, run this command on any [supported](https://github.com/pry0cc/axiom#operating-systems-supported]) OS. The script will prompt for sudo when root when required.
 ```
@@ -22,7 +28,7 @@ Run configure script
 $HOME/.axiom/interact/axiom-configure
 ```
 ## Manual
-To install axiom on an OS that is not on our [supported](https://github.com/pry0cc/axiom#operating-systems-supported]) list, all you have to do is ensure that you have all the right dependencies and then run the configuration script.
+To install axiom on an OS that is not on our [supported](https://github.com/pry0cc/axiom/blob/master/README.md#operating-systems-supported]) list, all you have to do is ensure that you have all the right dependencies and then run `axiom-account-setup`.
 
 ## Dependencies
 - Digital Ocean API Key - (Personal Access Token) - https://cloud.digitalocean.com/account/api/tokens
@@ -64,41 +70,10 @@ Then run `axiom-account <profile>`
 ```
 axiom-account personal
 ```
----
-### Error when Updating
-```
-$ axiom-update
-remote: Enumerating objects: 10, done.
-remote: Counting objects: 100% (10/10), done.
-remote: Compressing objects: 100% (2/2), done.
-Unpacking objects: 100% (6/6), 1012 bytes | 253.00 KiB/s, done.
-remote: Total 6 (delta 3), reused 5 (delta 3), pack-reused 0
-From github.com:pry0cc/axiom
-   4c8e258..a2992f1  master     -> origin/master
-Updating 4c8e258..a2992f1
-error: Your local changes to the following files would be overwritten by merge:
-	interact/includes/functions.sh
-Please commit your changes or stash them before you merge.
-Aborting
-```
 
-### Fix
-```
-rm ~/.axiom/interact/includes/functions.sh
-axiom-account <profile>
-```
----
+
 ## FAQ
 ### I can't log in to my droplets, I get permission denied/wrong password?
-You might find that SSH keys are not correctly configured, make sure that you have a valid keypair in `~/.ssh/id_rsa` and a public key in `~/.ssh/id_rsa.pub`. You will also need `~/.axiom/configs/authorized_keys` to contain your SSH public key.
-
-```
-## Press enter, do not set a password unless you want to be prompted for every connection.
-ssh-keygen
-
-## Copy your SSH pubkey into the authorized_keys file
-cat ~/.ssh/id_rsa.pub > ~/.axiom/configs/authorized_keys
-
-## Build a new axiom image (this will bake in your keys) 
-axiom-build
-```
+Be default, axiom creates an SSH key named axiom_rsa in `~/.ssh/axiom_rsa`. The reference to the SSH key is stored in `~/.axiom/axiom.json`. You can change the `sshkey` value to another SSH key as long as its stored in `~/.ssh/`. You will need to rebuild (`axiom-build`) with your new SSH key to use it. 
+### I spin up `X` instances but only `Y` provision, whats wrong?
+Check that you havent exceeded your droplet limit. After a few billing cycles you can generally increase your droplet limit via opening a support ticket with the associated cloud provider 
