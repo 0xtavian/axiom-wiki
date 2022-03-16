@@ -1,11 +1,24 @@
 Spinning up and managing individual instances is easy, however, what about several instances?
 
-A bunch of instances, usually an odd number, 3 or greater, is known as a fleet. A fleet consists of a set of hosts, these can be used for parallel file transfers, scans, or parallel command execution
+A bunch of instances, usually an odd number, 3 or greater, is known as a fleet. A fleet consists of a set of hosts, these can be used for parallel file transfers, scans, or parallel command execution.
 
-### Starting a fleet
+### Usage
+
 ```
-axiom-fleet <fleet> -i=<number of instances> 
-axiom-fleet jarvis -i=5
+Description:
+  Spin up fleets of axiom instances in one or multiple regions.
+  Specify the name of your fleet (fleet prefix) or have axiom choose for you.
+Examples:
+  axiom-fleet # Spin up three instances, let axiom decide on the fleet prefix
+  axiom-fleet javis -i 10 # Spin up 10 instances with fleet prefix javis from javis01 to javis10
+  axiom-fleet jerry -i 25 --regions nyc1,lon1,ams3,fra1 # Spin up 25 instances using Round-robin region distribution
+Usage:
+  -i/--instances <integer>
+    The number of instances to spin up
+  -r/--regions <regions> (optional)
+    Supply comma-separated regions to cycle through (default is region in ~/.axiom/axiom.json)
+  --help (optional)
+    Display this help menu
 ```
 
 The above command will start a fleet called "jarvis" with 5 instances. Automatic shutdown of droplets has been deprecated, we noticed it was mostly unused and added more complexity than it paid off. If you want to see a return of automatic disposal - please make an issue!
