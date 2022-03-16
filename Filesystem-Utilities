@@ -2,15 +2,53 @@
 
 Filesystem utilities to help you interact with axiom instances!
 
-# axiom-configure 
-**Install axiom** <br>
+# axiom-configure
+**Setup and configure the axiom controller and validate cloud account** :computer:
+#
+<details>
+  <summary>axiom-configure usage</summary>
+  
+  ``` 
+ ▄▄▄      ▒██   ██▒ ██▓ ▒█████   ███▄ ▄███▓
+▒████▄    ▒▒ █ █ ▒░▓██▒▒██▒  ██▒▓██▒▀█▀ ██▒
+▒██  ▀█▄  ░░  █   ░▒██▒▒██░  ██▒▓██    ▓██░
+░██▄▄▄▄██  ░ █ █ ▒ ░██░▒██   ██░▒██    ▒██
+ ▓█   ▓██▒▒██▒ ▒██▒░██░░ ████▓▒░▒██▒   ░██▒
+ ▒▒   ▓▒█░▒▒ ░ ░▓ ░░▓  ░ ▒░▒░▒░ ░ ▒░   ░  ░
+  ▒   ▒▒ ░░░   ░▒ ░ ▒ ░  ░ ▒ ▒░ ░  ░      ░
+  ░   ▒    ░    ░   ▒ ░░ ░ ░ ▒  ░      ░
+      ░  ░ ░    ░   ░      ░ ░         ░
+
+The Dynamic Infrastructure Framework for Everybody - @pry0cc & @0xtavian
+
+We are lucky enough to be sponsored by the awesome SecurityTrails! 
+Sign up for your free account here! https://securitytrails.com/app/account?utm_source=axiom
+
+Description:
+Examples:                                                                                                                                                                                                                                  
+  axiom-configure # kick off axiom configuration wizard
+  axiom-configure --shell Zsh # Set default shell to Zsh via command line
+  axiom-configure --config <axiom.json config data> # Use plaintext axiom.json data for account setup TODO: support axiom.json as a file
+  axiom-configure --shell BASH --unattended --config <axiom.json config data>  # Use bash for default shell, do not promot, use plaintext axiom.json data for account setup
+Usage:
+  --config <axiom.json data>
+    Setup account with data supplied from the command line (must be vaild data from axiom.json wrapped in single quotes)
+  --unattended (optional)
+    Avoid any promots, defaults to Oh My Zsh unless --shell argument is also provided
+  --shell <Bash, Zsh, OMZ (Oh My Zsh)> (optional)
+    Choose bash/zsh to add axiom to .bashrc/.zshrc. OMZ installs Oh My Zsh and overwrites .zshrc
+  --help
+    Display this help menu
+  ```
+</details>
+
 ```
 axiom-configure
 ```
 You can provide your config inline or after running `axiom-configure`. <br>
 
 `
-axiom-configure --config { "do_key": "[redacted]", "region": "nyc1", "provider": "do", "default_size": "s-1vcpu-1gb", "appliance_name": "", "appliance_key": "", "appliance_url": "", "email": "", "op": "[redacted]", "imageid": "axiom-default-myimageid", "provisioner": "default", "sshkey": "id_rsa" }
+axiom-configure --shell bash --unattended --config { "do_key": "[redacted]", "region": "nyc1", "provider": "do", "default_size": "s-1vcpu-1gb", "appliance_name": "", "appliance_key": "", "appliance_url": "", "email": "", "op": "[redacted]", "imageid": "axiom-default-myimageid", "provisioner": "default", "sshkey": "id_rsa" } 
 `
 <br>
 >  To get your account.json config file in this format run: `cat ~/.axiom/accounts/do.json | tr '\n' ' ' | tr -s ' '`
@@ -103,6 +141,64 @@ axiom-init <name> --deploy=<profile> --restore=<box> # Init & deploy & restore
 #Note: profile argument is file name is without .json
 ```
 > the `--deploy` option allows you to deploy a profile (stored in `~/.axiom/profiles/`). `--restore` will restore a profile. These options can be used together.
+
+
+---
+
+
+# axiom-exec
+**Execute a command against an Instance** :robot:
+#
+<details>
+  <summary>axiom-exec usage</summary>
+  
+  ``` 
+Description:
+  Evaluate shell one-liners or execute single commands on one or more instances in parallel                                                                                                                       
+  Expand local and remote environment variables respectively                                                                                                                                                      
+  Specify the fleet prefix, or let axiom use selected.conf by default (located in ~/.axiom/selected.conf)                                                                                                         
+  Optionally execute command(s) in a detached tmux session on the remote instances (commands run in the background)                                                                                               
+  Temporarily prevent axiom's SSH key regeneration and instead connect with a cached SSH config (default is ~/.axiom/.sshconfig)                                                                                  
+Examples:                                                                                                                                                                                                         
+  axiom-exec id # Execute command id across all instances currently selected.conf (located in ~/.axiom/selected.conf)
+  axiom-exec ifconfig --fleet testy # Execute ifconfig on testy fleet. Automatically select all instances in fleet testy
+  axiom-exec sleep "$(($RANDOM % 10))" "&& id &&" echo $HOSTNAME --fleet stok # Evaluate complex one-liners on fleet stok
+  axiom-exec 'sudo apt dist-upgrade -y' -q --cache --fleet OtherFleet --tmux MySession01 # Quietly execute command(s) inside a detacted tmux session on the remote instances with custom session name
+  axiom-exec whoami -q --cache --sshconfig ~/.axiom/log/exec/axiom-exec+1234567890/sshconfig --fleet oldfleet --tmux # Specify the axiom SSH config to use (default is ~/.axiom/.sshconfig)
+Usage:
+  <commands> required string
+    Command(s) to run on the remote axiom instances, multiple commands can be wrapped in single or double quotes, but not required
+  -f/--fleet <fleet prefix>
+    Fleet prefix to execute on (default is ~/.axiom/selected.conf). Automatic wildcard support
+  -i/--instance <instance name>
+    Single instance to execute on
+  --tmux <optional tmux session name>
+    Execute commands in a detacted tmux session (commands run in the background). The default tmux session name is axiom-exec+$TIMESTAMP, or supply a custom tmux session name
+  --sshconfig <sshconfig_file> (optional string)
+    Path to axiom's SSH config (default is ~/.axiom/.sshconfig)
+  -q/--quiet
+    Disable progress bar, and reduce verbosity
+  --debug
+    Enable debug mode (VERY VERBOSE!)
+  --cache
+    Temporarily do not generate SSH config and instead connect with cached SSH config
+  --logs
+    Do not delete logs (logs will be stored in ~/.axiom/logs/exec/axiom-exec$TIMESTAMP)
+  --help
+    Display this help menu
+
+  ```
+</details>
+
+
+```bash
+  axiom-exec id # Execute command id across all instances currently selected.conf (located in ~/.axiom/selected.conf)
+  axiom-exec ifconfig --fleet testy # Execute ifconfig on testy fleet. Automatically select all instances in fleet testy
+  axiom-exec sleep "$(($RANDOM % 10))" "&& id &&" echo $HOSTNAME --fleet stok # Evaluate complex one-liners on fleet stok
+  axiom-exec 'sudo apt dist-upgrade -y' -q --cache --fleet OtherFleet --tmux MySession01 # Quietly execute command(s) inside a detacted tmux session on the remote instances with custom session name
+  axiom-exec whoami -q --cache --sshconfig ~/.axiom/log/exec/axiom-exec+1234567890/sshconfig --fleet oldfleet --tmux # Specify the axiom SSH config to use (default is ~/.axiom/.sshconfig)
+```
+
 
 ---
 # axiom-ssh 
@@ -395,7 +491,7 @@ Usage:
 ```bash
 axiom-fleet -i 13 # Initialize a fleet, name it randomly
 axiom-fleet testy -i 8 # Initialize a fleet named 'testy', instances will be named, testy01, test02 etc
-axiom-fleet testy -i 10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using round-robin region distribution  
+axiom-fleet testy -i 10 --regions nyc1,lon1,ams3,fra1 # Initialize a fleet using round-robin region distribution  
 ```
 
 ---
@@ -407,63 +503,67 @@ axiom-fleet testy -i 10 --regions=NYC1,LON1,TOR1 # Initialize a fleet using roun
   <summary>axiom-scan usage</summary>
   
   ```               _
-  ____ __  __(_)___  ____ ___        ______________ _____
- / __ `/ |/_/ / __ \/ __ `__ \______/ ___/ ___/ __ `/ __ \
-/ /_/ />  </ / /_/ / / / / / /_____(__  ) /__/ /_/ / / / /
-\__,_/_/|_/_/\____/_/ /_/ /_/     /____/\___/\__,_/_/ /_/
+              _
+  ____ __  __(_)___  ____ ___        ______________ _____                                                                                                                    
+ / __ `/ |/_/ / __ \/ __ `__ \______/ ___/ ___/ __ `/ __ \                                                                                                                   
+/ /_/ />  </ / /_/ / / / / / /_____(__  ) /__/ /_/ / / / /                                                                                                                   
+\__,_/_/|_/_/\____/_/ /_/ /_/     /____/\___/\__,_/_/ /_/                                                                                                                    
+                                                                                                                                                                             
+                                    @pry0cc                                                                                                                                  
+                                 & @0xtavian                                                                                                                                 
+                                                                                                                                                                             
+axiom-scan provides easy distribution of arbitrary binaries and scripts. 
+axiom-scan splits and uploads user-provided input files (target lists), wordlists and configuration files to every instance.
+axiom-scan executes the same command across all instances, which can be found in the module.
+axiom-scan downloads and merges scan output in a variety of different ways, specified in the module (folder, merged text file, csv etc). 
+individual scans are executed in the background, inside a unique tmux session and scan working directory on the remote instances
+ 
+Usage:
+  axiom-scan [flags]
 
-                                    @pry0cc
-                                 & @0xtavian
+Flags:
+INPUT:
+   string[]              the first positional argument must always be an input file, this can be a list of URLs, IPs, hostnames, etc
+   --dont-split          do not split input file, upload entire input file to every instance (default is to split the input file)
+   --dont-shuffle        do not randomize input file before uploading (default is to randomize)
 
-Input file does not exist, please specify one as the first argument... 
-Usage of axiom-scan
-Example Usage: axiom-scan ips.txt -m nmap -T4 --top-ports 2000 -oX output.xml
-  --list (optional)
-    List available modules
-  <input> required string
-    Input file, supplied as a positional first argument
-  -m required string
-    Module to use to scan (e.g masscan, nmap, gowitness, ffuf)
-  --dont-shuffle (optional)
-    Do not randomize input file before uploading (default is to randomize)
-  --dont-split (optional)
-    Do not split input file, upload entire input file to every instance (default is to split the target list)
-  -wL /path/to/local
-    Wordlist Local to use to scan with (must be a path to a local wordlist)
-  -wD/--distribute-wordlist (optional, depends on -wL)
-    When using -wL, split and upload local wordlist (default is to not split the wordlist)
-  -w /path/to/wordlist/on/instance
-    Wordlist to use to scan with (must be a path to a remote wordlist)
-  -o string
-    Output to default output (whatever that is for the module)
-  -oX string
-    Output in XML/HTML, supported in (nmap & masscan)
-  -oG string
-    Output to greppable output (will merge and sort unique)
-  -oD/-oA string
-    Output results to directory
-  -F string (optional)
-    Custom SSH configuration file to launch fleet from
-  --fleet string (optional)
-    Fleet to use, will use axiom-select by default.
-  --spinup int (optional)
-    How many instances to spin up
-  --rm-when-done (optional)
-    Delete selected instances when scan is complete.
-  --rm-logs (optional)
-    Delete remote and local logs when finished (default keeps all logs)
-  --shutdown-when-done (optional)
-    Shutdown selected instances when scan is complete.
-  --debug (optional)
-    Enable debug mode (VERY VERBOSE!)
-  --quiet
-    Enable quiet mode (placeholder: does not work)
-  --cache
-    Do not regenerate SSH config
-  --help (optional)
-    Display this help menu
-  <additional args>
-    If you want additional arguments supplied to your command, simply append them to the command!
+MODULE:
+   -m string[]           the axiom-scan module to use with the scan
+   --list                print all available modules
+
+WORDLIST:
+   -w string[]                       replace the string _wordlist_ in a module with a user-provided wordlist (must be a path to a remote wordlist)
+   -wL string[]                      replace the string _wordlist_ in a module with a user-provided local wordlist ( must be a path to a local wordlist)
+   --nuclei-templates string[]       replace the string _wordlist_ in a module with a user-provided local folder
+   -wD,--distribute-wordlist         requires -wL, when using -wL, split and upload local wordlist (default does not split the wordlist)
+
+CONFIGURATIONS:
+   --config string[]                 replace the string _config_ in a module with a user-provided configuration file (must be a configuration file on the remote instances)
+   --local-config string[]           replace the string _config_ in a module with a user-provided local configuration file to upload ( must be a local configuration file)
+
+OUTPUT:
+   -o string[]          output as default (the first ext mentioned in the module) 
+   -oD string[]         output as directory (must also be supplied in the module using "ext":"dir" or "ext":"")
+   -oX string[]         output as XML/HTML (supported for nmap and masscan)(must also be supplied in the module using "ext":"xml")
+   -oG string[]         output as greppable, merge and sort unique (must also be supplied in the module using "ext":"oG")
+   -csv string []       output as csv, extract csv header, merge and sort unique (must also be supplied in the module using "ext":"csv")
+   -anew string[]       pipe the output to anew before creating the final output file
+   --quiet              do not display findings to terminal
+   --rm-logs            delete remote and local logs after scan completes
+
+FLEET:
+   --fleet string[]            supply fleet prefix to use (default uses instances in /root/.axiom/selected.conf)
+   --spinup int[]              number of instances to spin up prior to scanning (default uses instances in /root/.axiom/selected.conf)
+   --rm-when-done              delete the selected instances after the scan completes
+   --shutdown-when-done        shutdown the selected instance after the scan completes
+   -F string[]                 path to custom SSH config file (default is located at /root/.axiom/.sshconfig)
+   --cache                     do not regenerate SSH config prior to scan, instead use cached config (located at /root/.axiom/.sshconfig)
+
+DEBUG:
+   --debug              run with set -xv, warning: very verbose
+
+EXTRA ARGS:
+   string[]             supply additional arguments to be passed to the module
   ```
 </details>
 
@@ -486,33 +586,4 @@ axiom-scan ips.txt -m nmap -oX portscan # Will create both portscan.xml & portsc
 axiom-scan ips.txt -m nmap -oX full -p- -T5 -sV --script=vulners # Will create full.xml, will pass all args to nmap command
 
 axiom-scan ips.txt -m masscan -oG masscan.txt # Run masscan
-```
----
-
-
-# axiom-exec
-**Execute a command against an Instance** :robot:
-#
-<details>
-  <summary>axiom-exec usage</summary>
-  
-  ``` Usage of axiom-exec
-Example Usage: axiom-exec 'id' 'my-fleet*' --cache
-  <commands> required positional string
-   Commands to run on the remote axiom instances, wrapped in single or double quotes
-  <fleet prefix> positional string
-   The instance or fleet name to execute the command on, supports wildcard (i.e myfleet*), wrapped in signle or double quotes
-  --cache positional option
-    Use SSH cache (works if recently interacted with)
-  ```
-</details>
-
-
-```bash
-axiom-exec '<command>' '<instance>' # Execute a command against an instance
-axiom-exec '<command>' '<instance>' --cache # Execute a command, use cached connection
-axiom-exec '<command>' '<instance>' -q --cache  # Execute silent, just show command output
-
-axiom-exec 'nmap -T5 navisec.io' 'testy01' -q --cache  # Example
-axiom-execb 'nmap -T5 navisec.io' 'testy01' -q --cache
 ```
